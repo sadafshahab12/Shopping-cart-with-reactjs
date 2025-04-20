@@ -1,4 +1,5 @@
 import React from "react";
+import { IoMdTrash } from "react-icons/io";
 
 const Cart = ({
   cartItems,
@@ -7,26 +8,27 @@ const Cart = ({
   decreaseQty,
   cartTotal,
 }) => {
+
   return (
     <div>
-      <h1>Shopping Cart - {cartItems.length}</h1>
-      <p>
-        {" "}
-        {cartItems.length === 0
-          ? ""
-          : `Total Price - ${cartTotal().toFixed(2)}`}{" "}
-      </p>
+      <h1 className="text-xl font-bold pt-5 pl-5">Cart</h1>
+
       {cartItems.length === 0 ? (
-        <p>Cart is empty</p>
+        <p className="pt-5 pl-5">Cart is empty</p>
       ) : (
-        <div>
+        <div className=" space-y-4 pt-4 px-4 ">
           {cartItems.map((item, index) => (
-            <div key={index}>
-              <img src={item.image} alt={item.name} />
-              <h1>{item.name}</h1>
-              <p>{item.price}</p>
-              <div>
+            <div key={index} className="grid grid-cols-5 items-center gap-5">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="w-15 h-15 object-cover"
+              />
+              <h1 className="text-[14px] font-black">{item.name}</h1>
+              <p className="text-[12px] ">{item.price}</p>
+              <div className="flex  items-center gap-3 ">
                 <button
+                  className="border border-slate-600 text-[16px] cursor-pointer h-6 w-6 rounded-md active:scale-95 transition-all "
                   onClick={() => {
                     decreaseQty(item.id);
                   }}
@@ -36,6 +38,7 @@ const Cart = ({
                 </button>
                 <p>{item.qty}</p>
                 <button
+                  className="border border-slate-600 text-[16px] cursor-pointer h-6 w-6 rounded-md active:scale-95 transition-all "
                   onClick={() => {
                     increaseQty(item.id);
                   }}
@@ -44,9 +47,25 @@ const Cart = ({
                   +{" "}
                 </button>
               </div>
-              <button onClick={() => removeFromCart(item.id)}>delete</button>
+              <button
+                className="bg-gradient-to-tr from-purple-300 to-purple-600 text-[16px] cursor-pointer h-8 w-8 rounded-lg flex justify-center items-center justify-self-center "
+                onClick={() => removeFromCart(item.id)}
+              >
+                <IoMdTrash />
+              </button>
             </div>
           ))}
+          <p className="border-t border-b border-gray-400 py-4">
+            {" "}
+            {cartItems.length === 0 ? (
+              ""
+            ) : (
+              <div className=" flex justify-between items-center px-4">
+                <p>Total Price </p>
+                <p>{cartTotal().toFixed(2)} </p>
+              </div>
+            )}
+          </p>
         </div>
       )}
     </div>

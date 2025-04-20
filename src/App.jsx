@@ -1,13 +1,17 @@
 import { useState } from "react";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
+import { BsCart3 } from "react-icons/bs";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
   const addToCart = (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
     if (existingItem) {
-      alert("alreaday added");
+      const updateCart = cartItems.map((item) =>
+        item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+      );
+      setCartItems(updateCart);
     } else {
       setCartItems([...cartItems, { ...product, qty: 1 }]);
     }
@@ -72,13 +76,34 @@ function App() {
     },
   ];
 
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpenCart = () => {
+    setIsOpen(!isOpen);
+  };
   return (
     <>
-      <main>
-        <div>
-          <h1>Shopping Cart</h1>
-          <div className="grid grid-cols-2">
-            <ProductList products={products} addToCart={addToCart} />
+      <main className="font-didact ">
+        <div className=" bg-purple-200 py-4 text-slate-800">
+          <nav className=" max-w-5xl mx-auto flex justify-between items-center">
+            <h1 className="font-black text-2xl">Shopping Cart</h1>
+            <div className="relative">
+              <BsCart3
+                className="w-6 h-6 cursor-pointer"
+                onClick={handleOpenCart}
+              />
+              <p className="absolute -top-1 -right-2 h-4 w-4 bg-purple-500 flex justify-center items-center text-white rounded-lg text-[12px]">
+                {cartItems.length}
+              </p>
+            </div>
+          </nav>
+        </div>
+        <div className="relative">
+          <ProductList products={products} addToCart={addToCart} />
+          <div
+            className={`absolute top-0 ${
+              isOpen ? "left-0  block" : "-left-full"
+            }  bg-white  h-full transition-all ease-in duration-200 border-l border-gray-300 shadow-lg`}
+          >
             <Cart
               removeFromCart={removeFromCart}
               cartItems={cartItems}
