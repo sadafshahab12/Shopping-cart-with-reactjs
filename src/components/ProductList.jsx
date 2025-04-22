@@ -3,7 +3,7 @@ import React from "react";
 const ProductList = ({ products, addToCart }) => {
   return (
     <>
-      <div className="grid grid-cols-3 p-10 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 p-5 sm:p-10 gap-5">
         {products.map((item, index) => (
           <div
             key={index}
@@ -13,7 +13,7 @@ const ProductList = ({ products, addToCart }) => {
             <img
               src={item.image}
               alt={item.name}
-              className="w-50 h-50 object-cover"
+              className="w-30 sm:w-35 md:w-50 h-30 sm:h-35 md:h-50 object-cover"
             />
             <p className="text-lg font-semibold">${item.price}</p>
             <button

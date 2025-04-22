@@ -2,6 +2,7 @@ import { useState } from "react";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
 import { BsCart3 } from "react-icons/bs";
+import { FaGithub } from "react-icons/fa";
 
 function App() {
   const [cartItems, setCartItems] = useState([]);
@@ -83,7 +84,7 @@ function App() {
   return (
     <>
       <main className="font-didact ">
-        <div className=" bg-purple-200 py-4 text-slate-800">
+        <div className=" bg-purple-200 py-4 px-8 text-slate-800">
           <nav className=" max-w-5xl mx-auto flex justify-between items-center">
             <h1 className="font-black text-2xl">Shopping Cart</h1>
             <div className="relative">
@@ -101,8 +102,8 @@ function App() {
           <ProductList products={products} addToCart={addToCart} />
           <div
             className={`absolute top-0 ${
-              isOpen ? "left-0  block" : "-left-full"
-            }  bg-white  h-full transition-all ease-in duration-200 border-l border-gray-300 shadow-lg`}
+              isOpen ? "scale-y-100" : "scale-y-0 opacity-0"
+            }  bg-white w-[18rem]  sm:w-[30rem] right-0 h-full transition-all origin-top overflow-y-auto ease-in duration-200 border-l border-gray-300 shadow-lg`}
           >
             <Cart
               removeFromCart={removeFromCart}
@@ -113,6 +114,10 @@ function App() {
             />
           </div>
         </div>
+        <footer className="bg-slate-800 text-white text-center py-4 ">
+          <p>Build by Sadaf Shahab </p>
+          <FaGithub />
+        </footer>
       </main>
     </>
   );
